@@ -28,9 +28,25 @@ class Bot {
     }
     init() {
         this.bot.start( ctx => ctx.scene.enter(userformScene.id) );
-        this.bot.launch();
+
+        if (process.env.environment == "PRODUCTION") {
+            this.bot.launch({ webhook: { 
+                domain: this.configService.get("WEBHOOK_DOMAIN"), 
+                port: +this.configService.get("PORT") || 8000 },
+            }).then(() => {
+                console.info(`The bot ${bot.bot.botInfo?.username} is running on server`);
+              });
+        } else { //running bot locally
+            this.bot.launch().then(() => {
+                console.info(`The bot ${bot.bot.botInfo?.username} is running locally`);
+            });
+        }
+
     }
 }
-  
+
 const bot = new Bot(new ConfigService());
 bot.init();
+
+process.once("SIGINT", () => bot.bot.stop("SIGINT"));
+process.once("SIGTERM", () => bot.bot.stop("SIGTERM"));
