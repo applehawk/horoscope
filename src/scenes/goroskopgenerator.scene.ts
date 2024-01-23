@@ -2,8 +2,7 @@ import { Composer, Markup, Scenes } from 'telegraf';
 import { message } from 'telegraf/filters';
 import { IBotContext } from '../context/context.interface';
 
-const debug_timeout_const = 0.01;
-const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms * debug_timeout_const));
+const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms));
 
 export const goroskopgeneratorScene = new Scenes.WizardScene<IBotContext>(
     'goroskopgenerator',
