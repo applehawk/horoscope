@@ -10,6 +10,6 @@ RUN tsc
 # Use production node environment by default.
 ENV NODE_ENV production
 # Expose the port that the application listens on.
-EXPOSE 8000
+EXPOSE 80
 # Run the application.
 CMD ["node", "./dist/app.js"]
