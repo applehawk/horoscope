@@ -1,6 +1,6 @@
 import { Telegraf, Scenes } from 'telegraf';
 import { IConfigService } from './config/config.interface';
-import { ConfigService } from './config/config.service';
+import { LocallyConfigService, ProductionConfigService } from './config/config.service';
 import { IBotContext } from './context/context.interface';
 import { Command } from './commands/command.class';
 import { userformScene } from './scenes/userform.scene';
@@ -44,8 +44,8 @@ class Bot {
 
     }
 }
-
-const bot = new Bot(new ConfigService());
+const configService = process.env.NODE_ENV !== 'production' ? new LocallyConfigService() : new ProductionConfigService();
+const bot = new Bot(configService);
 bot.init();
 
 process.once("SIGINT", () => bot.bot.stop("SIGINT"));

@@ -1,7 +1,7 @@
 import { config, DotenvParseOutput } from "dotenv";
 import { IConfigService } from "./config.interface"
 
-export class ConfigService implements IConfigService {
+export class LocallyConfigService implements IConfigService {
     private config: DotenvParseOutput;
     private __language_code: string = "en";
      
@@ -17,6 +17,16 @@ export class ConfigService implements IConfigService {
     }
     get(key: string): string {
         const res = this.config[key];
+        if(!res) {
+            throw new Error("key in config[key] doesn't exist.");
+        }
+        return res
+    }
+}
+
+export class ProductionConfigService implements IConfigService {
+    get(key: string): string {
+        const res = process.env["key"];
         if(!res) {
             throw new Error("key in config[key] doesn't exist.");
         }
