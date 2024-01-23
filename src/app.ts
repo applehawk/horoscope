@@ -44,7 +44,7 @@ class Bot {
 
     }
 }
-const configService = process.env.NODE_ENV !== 'production' ? new LocallyConfigService() : new ProductionConfigService();
+const configService = process.env.environment !== 'production' ? new LocallyConfigService() : new ProductionConfigService();
 const bot = new Bot(configService);
 bot.init();
 
