@@ -29,7 +29,7 @@ class Bot {
     init() {
         this.bot.start( ctx => ctx.scene.enter(userformScene.id) );
 
-        if (process.env.NODE_ENV === "PRODUCTION") {
+        if (process.env.NODE_ENV === "production") {
             console.log("We are on Production");
             this.bot.launch({ webhook: { 
                 domain: this.configService.get("WEBHOOK_DOMAIN"), 
