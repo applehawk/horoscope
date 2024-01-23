@@ -1,4 +1,4 @@
-import I18n from "i18n-telegraf";
+import I18n from "telegraf-i18n";
 import { Context, Composer, Scenes } from "telegraf";
 
 export interface SessionData extends Scenes.WizardSession {

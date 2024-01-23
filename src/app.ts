@@ -6,7 +6,7 @@ import { Command } from './commands/command.class';
 import { userformScene } from './scenes/userform.scene';
 import { goroskopgeneratorScene } from './scenes/goroskopgenerator.scene';
 import LocalSession from 'telegraf-session-local';
-import TelegrafI18n from 'i18n-telegraf';
+import TelegrafI18n from 'telegraf-i18n';
 
 const i18n = new TelegrafI18n({
     defaultLanguage: 'ru',
