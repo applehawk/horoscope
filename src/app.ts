@@ -1,10 +1,10 @@
 import { Telegraf, Scenes } from 'telegraf';
-import { IConfigService } from './src/config/config.interface';
-import { ConfigService } from './src/config/config.service';
-import { IBotContext } from './src/context/context.interface';
-import { Command } from './src/commands/command.class';
-import { userformScene } from './src/scenes/userform.scene';
-import { goroskopgeneratorScene } from './src/scenes/goroskopgenerator.scene';
+import { IConfigService } from './config/config.interface';
+import { ConfigService } from './config/config.service';
+import { IBotContext } from './context/context.interface';
+import { Command } from './commands/command.class';
+import { userformScene } from './scenes/userform.scene';
+import { goroskopgeneratorScene } from './scenes/goroskopgenerator.scene';
 import LocalSession from 'telegraf-session-local';
 import TelegrafI18n from 'i18n-telegraf';
 
@@ -20,10 +20,10 @@ class Bot {
     commands: Command[] = [];
 
     constructor(private readonly configService: IConfigService) {
-        this.bot = new Telegraf<IBotContext>(this.configService.get("BOT_TOKEN"));
+        this.bot = new Telegraf<IBotContext>(this.configService.get("BOT_TOKEN"), { handlerTimeout: 120_000 });
         this.bot.use( i18n.middleware() );
-        this.bot.use( new LocalSession({ database: "session.json" }).middleware() );
         this.stage = new Scenes.Stage<IBotContext>([userformScene, goroskopgeneratorScene], { default: userformScene.id });
+        this.bot.use( new LocalSession({ database: "session.json" }).middleware() );
         this.bot.use(this.stage.middleware());
     }
     init() {
