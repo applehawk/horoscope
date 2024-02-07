@@ -23,7 +23,7 @@ export const goroskopgeneratorScene = new Scenes.WizardScene<IBotContext>(
         await ctx.reply(`⌛️ Твой персональный гороскоп будет готов через 1 минуту!`)
 
         await sleep(60*1000);
-        await ctx.reply(ctx.i18n.t('horoscope_example', { 'Имя полное': ctx.session.name } ));
+        await ctx.reply(ctx.i18n.t('horoscope_example', { 'fullname': ctx.session.name } ));
         return ctx.wizard.next();
     },
     async (ctx) => {
